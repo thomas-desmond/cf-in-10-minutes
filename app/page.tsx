@@ -2,21 +2,21 @@
 import { FormEvent, useState } from "react";
 
 export default function Home() {
-  const [moodResponse, setMoodResponse] = useState<string>("");
+  const [compliment, setCompliment] = useState<string>("");
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    setMoodResponse("")
+    setCompliment("")
     const formData = new FormData(event.target as HTMLFormElement);
-    const moodInput = formData.get("mood") as string;
+    const nameInput = formData.get("name") as string;
 
     try {
-      const response = await fetch("/api/emoji-mood", {
+      const response = await fetch("/api/compliment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ mood: moodInput }),
+        body: JSON.stringify({ name: nameInput }),
       });
 
       if (!response.ok) {
@@ -24,22 +24,22 @@ export default function Home() {
       }
 
       const data = await response.json() as string;
-      setMoodResponse(data);
+      setCompliment(data);
     } catch (error) {
-      console.error("Error submitting mood:", error);
+      console.error("Error submitting:", error);
     }
   };
   return (
     <main className="flex min-h-screen flex-col items-center p-24 space-y-4">
-      <h1 className="text-4xl font-bold">Emoji Mooder</h1>
+      <h1 className="text-4xl font-bold">Compliment Creator</h1>
       <form className="w-full max-w-sm" onSubmit={handleSubmit}>
         <div className="flex items-center border-b border-teal-500 py-2">
           <input
             className="appearance-none bg-transparent border-none w-full mr-3 py-1 px-2 leading-tight focus:outline-none"
             type="text"
-            name="mood"
-            placeholder="Enter your mood"
-            aria-label="Mood"
+            name="name"
+            placeholder="Enter name to compliment"
+            aria-label="compliment"
             id="moodInput"
           />
           <button
@@ -50,9 +50,9 @@ export default function Home() {
           </button>
         </div>
       </form>
-      {moodResponse && (
+      {compliment && (
         <div className="mt-4 text-2xl">
-          Your mood emoji: {moodResponse}
+          {compliment}
         </div>
       )}
     </main>

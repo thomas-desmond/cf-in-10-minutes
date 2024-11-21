@@ -7,3 +7,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`c3`](https:
 3. Create your own [KV](https://developers.cloudflare.com/kv/) to perform caching with the following command: `npx wrangler kv namespace create demo_kv`, the output will have a binding that needs to replace the existing binding in the `wrangler.toml` file.
 4. Push these changes to your GitHub repository
 5. Connect your [Git Provider to Cloudflare Pages](https://developers.cloudflare.com/pages/get-started/git-integration/#connect-your-git-provider-to-pages) and DEPLOY!
+
+## Next Steps
+
+1. Try other [Cloudflare text generation models](https://developers.cloudflare.com/workers-ai/models/)
+2. Reach out to me in the [Cloudflare Discord](https://discord.com/invite/cloudflaredev) my username is thomas_desmond

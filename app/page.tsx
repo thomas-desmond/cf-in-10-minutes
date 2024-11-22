@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24 space-y-4">
+    <main className="flex flex-col items-center p-24 space-y-4">
       <h1 className="text-4xl font-bold">Compliment Creator</h1>
       <form className="w-full max-w-sm" onSubmit={handleSubmit}>
         <div className="flex items-center border-b border-teal-500 py-2">

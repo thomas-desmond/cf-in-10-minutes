@@ -11,6 +11,11 @@ interface UserRequest {
 export async function POST(request: NextRequest) {
   const body: UserRequest = await request.json();
 
+  const cachedCompliment = await getRequestContext().env.kv_demo22.get(body.name);
+  if(cachedCompliment) {
+    return Response.json(cachedCompliment);
+  }
+
   const messages = [
     {
       role: "system",
@@ -23,6 +28,10 @@ export async function POST(request: NextRequest) {
     },
   ];
 
+  const { response } = await getRequestContext().env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", { messages });
+  console.log(response);
 
-  return Response.json("");
+  await getRequestContext().env.kv_demo22.put(body.name, response)
+
+  return Response.json(response);
 }

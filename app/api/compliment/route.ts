@@ -11,6 +11,9 @@ interface UserRequest {
 export async function POST(request: NextRequest) {
   const body: UserRequest = await request.json();
 
+  const cachedResponse = await getRequestContext().env.kv_demo33.get(body.name)
+  if(cachedResponse) return Response.json(cachedResponse)
+
   const messages = [
     {
       role: "system",
@@ -23,6 +26,9 @@ export async function POST(request: NextRequest) {
     },
   ];
 
+  const {response} = await getRequestContext().env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", { messages });
 
-  return Response.json("");
+  await getRequestContext().env.kv_demo33.put(body.name, response)
+
+  return Response.json(response);
 }

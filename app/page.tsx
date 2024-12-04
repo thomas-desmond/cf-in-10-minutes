@@ -9,7 +9,20 @@ export default function Home() {
     const formData = new FormData(event.target as HTMLFormElement);
     const nameInput = formData.get("name") as string;
 
-    setCompliment(`${nameInput} is the best!`)
+    const response = await fetch("/api/compliment", {
+      method: "POST",
+      headers: {
+      "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: nameInput }),
+    });
+
+    if (response.ok) {
+      const data = await response.json() as string;
+      setCompliment(data);
+    } else {
+      console.error("Failed to fetch compliment");
+    }
   };
 
   return (

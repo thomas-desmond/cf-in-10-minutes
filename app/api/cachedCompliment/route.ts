@@ -10,7 +10,7 @@ interface UserRequest {
 export async function POST(request: NextRequest) {
   const body: UserRequest = await request.json();
 
-  const cachedResponse = await getRequestContext().env.kv_demo33.get(body.name)
+  const cachedResponse = await getRequestContext().env.kv_demo.get(body.name)
   if(cachedResponse) return Response.json(cachedResponse)
 
   const messages = [

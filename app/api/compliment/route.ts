@@ -22,7 +22,9 @@ export async function POST(request: NextRequest) {
       content: body.name,
     },
   ];
+  
+  const { response } = await getRequestContext().env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", { messages });
 
+  return Response.json(response);
 
-  return Response.json("");
 }

@@ -1,4 +1,3 @@
-
 import type { NextRequest } from "next/server";
 import { getRequestContext } from "@cloudflare/next-on-pages";
 
@@ -23,6 +22,9 @@ export async function POST(request: NextRequest) {
     },
   ];
 
+  const { response}  = await getRequestContext().env.AI.run("@cf/meta/llama-3.1-8b-instruct-fast", {
+    messages,
+  });
 
-  return Response.json("");
+  return Response.json(response);
 }
